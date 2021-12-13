@@ -4,9 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Post;
 use App\Form\PostType;
+use App\Repository\EventRepository;
 use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,9 +23,16 @@ class PostController extends AbstractController
      */
     public function index(PostRepository $postRepository): Response
     {
-        return $this->render('post/index.html.twig', [
-            'posts' => $postRepository->findAll(),
-        ]);
+        $allPosts = $postRepository->findAll();
+        $arrayCollection = array();
+
+        foreach($allPosts as $post) {
+            $arrayCollection[] = array(
+                'title' => $post->getTitle(),
+                'content' => $post->getContent(),
+            );
+        }
+        return new JsonResponse($arrayCollection);
     }
 
     /**
@@ -39,23 +48,23 @@ class PostController extends AbstractController
             $entityManager->persist($post);
             $entityManager->flush();
 
-            return $this->redirectToRoute('post_index', [], Response::HTTP_SEE_OTHER);
+            return new JsonResponse("Post créé", 200);
         }
 
-        return $this->renderForm('post/new.html.twig', [
-            'post' => $post,
-            'form' => $form,
-        ]);
+        return new JsonResponse("Ajouter un post", 200);
     }
 
     /**
      * @Route("/{id}", name="post_show", methods={"GET"})
      */
-    public function show(Post $post): Response
+    public function show(EntityManagerInterface $entityManager, Request $request): Response
     {
-        return $this->render('post/show.html.twig', [
-            'post' => $post,
-        ]);
+        $post = $entityManager->getRepository('App:Post')->findOneBy(['id' => $request->get('id')]);
+        $arrayCollection[] = array(
+            'title' => $post->getTitle(),
+            'content' => $post->getContent(),
+        );
+        return new JsonResponse($arrayCollection);
     }
 
     /**
@@ -69,13 +78,10 @@ class PostController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('post_index', [], Response::HTTP_SEE_OTHER);
+            return new JsonResponse("Post modifié", 200);
         }
 
-        return $this->renderForm('post/edit.html.twig', [
-            'post' => $post,
-            'form' => $form,
-        ]);
+        return new JsonResponse("Modifier un post", 200);
     }
 
     /**
@@ -86,8 +92,9 @@ class PostController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$post->getId(), $request->request->get('_token'))) {
             $entityManager->remove($post);
             $entityManager->flush();
+
+            return new JsonResponse("Post supprimé", 200);
         }
 
-        return $this->redirectToRoute('post_index', [], Response::HTTP_SEE_OTHER);
-    }
+        return new JsonResponse("Supprimer un post", 200);     }
 }
