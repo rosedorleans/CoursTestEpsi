@@ -5,6 +5,12 @@
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
 
+    mydatabase:
+        # supported versions: 9.6, 10, 11, 12, 13, 14
+        # 9.3 is also available but not maintained upstream
+        type: postgresql:14
+        disk: 1024
+
 services:
     # default configuration for services in *this* file
     _defaults:
@@ -21,5 +27,9 @@ services:
             - '../src/Kernel.php'
             - '../src/Tests/'
 
+
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+
