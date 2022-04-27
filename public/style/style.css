@@ -1,0 +1,103 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Yanone+Kaffeesatz:wght@200;400&display=swap');
+
+
+html,
+body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+}
+
+nav ul {
+    position: absolute;
+    top: 40px;
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    background-color: transparent;
+    color: #FFF;
+    font-size: 1vw;
+    text-transform: uppercase;
+    z-index: 3;
+    text-shadow: 0 0 5px #000;
+}
+
+nav ul li a {
+    color: #FFF;
+    text-decoration: none;
+}
+
+nav ul li a:hover {
+    color: #121518;
+    font-weight: bold;
+    text-shadow: none;
+}
+
+#home_img {
+    position: relative;
+    z-index: 1;
+}
+
+#home_img h1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    box-sizing: border-box;
+    width: 100%;
+    margin-top: 150px;
+    padding: 10px;
+    color: #FFF;
+    text-align: center;
+    font-size: 10vw;
+    font-weight: 300;
+    text-transform: uppercase;
+    font-family: 'Yanone Kaffeesatz', sans-serif !important;
+    
+}
+
+#home_img img {
+    height: auto;
+    width: 100%;
+}
+
+
+
+
+
+#posts_body {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-column-gap: 30px;
+    grid-row-gap: 30px;
+    width: 100%;
+    margin: -50px 10% 0;
+    z-index: 2;
+}
+
+#post_card {
+    height: 20vh;
+    background-color: #FFF;
+}
+
+#post_card img {
+    width:300px;
+    height:300px;
+    object-fit:cover;
+}
+
+
+
+
+
+
+
+
+
+
+
+footer p {
+    font-size: 10px;
+}

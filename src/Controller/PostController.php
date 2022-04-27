@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Post;
 use App\Form\PostType;
-use App\Repository\EventRepository;
 use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -28,7 +27,7 @@ class PostController extends AbstractController
 
         foreach($allPosts as $post) {
             $arrayCollection[] = array(
-                'title' => $post->getTitle(),
+                'title' => strtoupper($post->getTitle()),
                 'content' => $post->getContent(),
             );
         }
@@ -47,7 +46,6 @@ class PostController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($post);
             $entityManager->flush();
-
             return new JsonResponse("Post créé", 200);
         }
 
