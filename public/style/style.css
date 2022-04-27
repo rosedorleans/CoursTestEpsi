@@ -7,6 +7,10 @@ body {
     font-family: 'Montserrat', sans-serif;
 }
 
+.body {
+    background-color: #f5ebdc57;
+}
+
 nav ul {
     position: absolute;
     top: 40px;
@@ -32,13 +36,13 @@ nav ul li a {
 
 nav ul li a:hover {
     color: #121518;
-    font-weight: bold;
+    font-weight: bold !important;
     text-shadow: none;
 }
 
 #home_img {
     position: relative;
-    z-index: 1;
+    z-index: -1;
 }
 
 #home_img h1 {
@@ -54,6 +58,7 @@ nav ul li a:hover {
     font-size: 10vw;
     font-weight: 300;
     text-transform: uppercase;
+    text-shadow: 0 0 20px #000;
     font-family: 'Yanone Kaffeesatz', sans-serif !important;
     
 }
@@ -69,22 +74,21 @@ nav ul li a:hover {
 
 #posts_body {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: auto auto auto;
     grid-column-gap: 30px;
     grid-row-gap: 30px;
-    width: 100%;
     margin: -50px 10% 0;
-    z-index: 2;
 }
 
 #post_card {
-    height: 20vh;
+    padding: 10px 10px 40px;
     background-color: #FFF;
+    box-shadow: 0 0 20px #00000042;
 }
 
 #post_card img {
-    width:300px;
-    height:300px;
+    width: 100%;
+    height: 35vh;
     object-fit:cover;
 }
 
